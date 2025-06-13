@@ -27,7 +27,7 @@ stages:
 
           - task: Docker@2
             inputs:
-              containerRegistry: 'azure-acr-connection'   # Match the name you gave in Step 5
+              containerRegistry: 'Azure Container Registry'   # Match the name you gave in Step 5
               repository: 'devtest12346'
               command: 'buildAndPush'
               Dockerfile: '**/Dockerfile'
