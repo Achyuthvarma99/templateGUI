@@ -28,7 +28,7 @@ stages:
           - task: Docker@2
             inputs:
               containerRegistry: 'acr-docker'   # Match the name you gave in Step 5
-              repository: 'devtest12346'
+              repository: 'devtest12346.azurecr.io'
               command: 'buildAndPush'
               Dockerfile: '**/Dockerfile'
               tags: |
