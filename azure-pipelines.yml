@@ -5,20 +5,36 @@ variables:
   tag: '$(Build.BuildId)'
   dockerConnection: '5f10f1d5-c7b4-4fba-a476-eb796807eb5c'
 
-# 🛠️ Use your custom self-hosted agent pool
 pool:
   name: DevPool-agent
   demands:
     - agent.name -equals DevPool-agent
 
 steps:
+# Step 1: Build the JAR using Maven
+- task: Maven@3
+  displayName: '🔨 Build Java Project'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'package'
+    options: '-Dmaven.test.skip=true'
+
+# Step 2: Publish the JAR as an artifact (optional but clean)
+- task: PublishBuildArtifacts@1
+  displayName: '📦 Publish target folder'
+  inputs:
+    PathtoPublish: 'target'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+# Step 3: Build & Push Docker image
 - task: Docker@2
-  displayName: Build and Push Docker image
+  displayName: '🐳 Build and Push Docker image'
   inputs:
     command: buildAndPush
     repository: devtest12346.azurecr.io/templategui-app
-    dockerfile: '**/Dockerfile'
+    dockerfile: 'Dockerfile'  # 👈 Assuming Dockerfile is in root; change if needed
+    containerRegistry: acr-docker  # 🔐 ACR Service Connection name
     tags: |
       $(tag)
       latest
-    containerRegistry: acr-docker  # 🧠 This must match your Service Connection name
