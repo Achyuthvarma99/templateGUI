@@ -6,7 +6,7 @@ ENV APP_HOME=/app
 WORKDIR $APP_HOME
 
 # Copy the compiled JAR (replace with your real jar file name if needed)
-COPY target/templateGUI.jar app.jar
+COPY target/*.jar app.jar
 
 # Expose port (change if needed)
 EXPOSE 8080
