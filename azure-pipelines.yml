@@ -1,12 +1,15 @@
 trigger:
-- master
+  - master
 
 variables:
   tag: '$(Build.BuildId)'
   dockerConnection: '5f10f1d5-c7b4-4fba-a476-eb796807eb5c'
 
+# 🛠️ Use your custom self-hosted agent pool
 pool:
-  vmImage: ubuntu-latest
+  name: DevPool-agent
+  demands:
+    - agent.name -equals DevPool-agent
 
 steps:
 - task: Docker@2
@@ -18,4 +21,4 @@ steps:
     tags: |
       $(tag)
       latest
-    containerRegistry: acr-docker  # ← must exactly match service connection name
+    containerRegistry: acr-docker  # 🧠 This must match your Service Connection name
