@@ -14,7 +14,7 @@ RUN apt-get update && \
 COPY target/*.jar app.jar
 
 # Expose port (change if needed)
-EXPOSE 8080
+EXPOSE 80
 
 # Set the default command
 ENTRYPOINT ["java", "-jar", "app.jar"]
