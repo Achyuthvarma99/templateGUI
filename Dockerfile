@@ -11,7 +11,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Copy the compiled JAR (adjust if needed)
-COPY target/*.jar app.jar
+COPY target/app.jar app.jar
 
 # Expose port (change if needed)
 EXPOSE 80
